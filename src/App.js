@@ -1,25 +1,47 @@
-import logo from './logo.svg';
-import './App.css';
+import { Link, Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+import React, { useState } from 'react';
+
+import LuckyDraw from './LuckyDraw';
+import Survey from './Survey';
 
 function App() {
+  const [isSurveyCompleted, setSurveyCompleted] = useState(false);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className="App">
+        <nav>
+          <ul>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/survey">Survey</Link>
+            </li>
+            <li>
+              <Link to="/lucky-draw">Lucky Draw</Link>
+            </li>
+          </ul>
+        </nav>
+        
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route
+            path="/survey"
+            element={<Survey onSurveyComplete={() => setSurveyCompleted(true)} />}
+          />
+          <Route
+            path="/lucky-draw"
+            element={<LuckyDraw isSurveyCompleted={isSurveyCompleted} />}
+          />
+        </Routes>
+      </div>
+    </Router>
   );
+}
+
+function Home() {
+  return <div>Home Page</div>;
 }
 
 export default App;
