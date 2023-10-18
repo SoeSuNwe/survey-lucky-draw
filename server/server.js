@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const bodyParser = require('body-parser');
 const app = express();
 
 app.use(express.json());
@@ -30,6 +31,14 @@ const luckyDrawResultSchema = new mongoose.Schema({
 
 const SurveyResponse = mongoose.model('SurveyResponse', surveyResponseSchema);
 const LuckyDrawResult = mongoose.model('LuckyDrawResult', luckyDrawResultSchema);
+
+// const User = mongoose.model('User', { name: String, email: String });
+// app.use(bodyParser.json());
+// app.post('/users', (req, res) => {
+//   const user = new User(req.body);
+//   user.save().then(() => res.json(user));
+// });
+
 
 // Create API routes for saving survey responses and lucky draw results
 app.post('/api/survey-response', async (req, res) => {

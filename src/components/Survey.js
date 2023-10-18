@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 
-import Spin from './Spin';
 import axios from 'axios';
 
 function Survey({ onSurveyComplete }) {
@@ -75,15 +74,9 @@ function Survey({ onSurveyComplete }) {
                     ></textarea>
                 </label>
                 <br />
-                <button type="submit">Submit</button> 
-
-                {/* Display the loader spinner when loading is true */}
-                {loading && (
-                    <Spin/>
-                )}
-               
+                <button type="submit">Submit</button>   
             </form>
-            <Spin/>
+          
         </div>
     );
 }
