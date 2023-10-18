@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import {ColorRing} from 'react-loader-spinner';
+import Spin from './Spin';
 import axios from 'axios';
 
 function Survey({ onSurveyComplete }) {
@@ -79,14 +79,11 @@ function Survey({ onSurveyComplete }) {
 
                 {/* Display the loader spinner when loading is true */}
                 {loading && (
-                    <ColorRing
-                        type="TailSpin" // Choose the type of spinner you want
-                        color="#00BFFF" // Set the color
-                        height={50} // Set the height
-                        width={50} // Set the width
-                    />
+                    <Spin/>
                 )}
+               
             </form>
+            <Spin/>
         </div>
     );
 }

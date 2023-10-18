@@ -1,29 +1,42 @@
-import { Link, Route, BrowserRouter as Router, Routes } from 'react-router-dom';
-import React, { useState } from 'react';
+import "./App.css";
 
-import LuckyDraw from './LuckyDraw';
-import Survey from './Survey';
+import { AppBar, Box, Toolbar, Typography } from '@mui/material';
+import React, { useState } from 'react';
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+
+import Home from './components/Home';
+import IconButton from '@mui/material/IconButton';
+import LuckyDraw from './components/LuckyDraw';
+import MenuIcon from '@mui/icons-material/Menu';
+import { NavigationButton } from "./NavigationButton";
+import Survey from './components/Survey';
 
 function App() {
   const [isSurveyCompleted, setSurveyCompleted] = useState(false);
 
   return (
     <Router>
-      <div className="App">
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/survey">Survey</Link>
-            </li>
-            <li>
-              <Link to="/lucky-draw">Lucky Draw</Link>
-            </li>
-          </ul>
-        </nav>
-        
+      <Box sx={{ flexGrow: 1 }}>
+        <AppBar position="static">
+          <Toolbar>
+            <IconButton
+              size="large"
+              edge="start"
+              color="inherit"
+              aria-label="menu"
+              sx={{ mr: 2 }}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+              Survey App
+            </Typography>
+            <NavigationButton to="/" text="Home" />
+            <NavigationButton to="/survey" text="Survey" />
+            <NavigationButton to="/lucky-draw" text="Lucky Draw" />
+          </Toolbar>
+        </AppBar>
+
         <Routes>
           <Route path="/" element={<Home />} />
           <Route
@@ -35,13 +48,9 @@ function App() {
             element={<LuckyDraw isSurveyCompleted={isSurveyCompleted} />}
           />
         </Routes>
-      </div>
+      </Box>
     </Router>
   );
-}
-
-function Home() {
-  return <div>Home Page</div>;
 }
 
 export default App;
