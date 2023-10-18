@@ -1,18 +1,16 @@
 import "./App.css";
 
 import { AppBar, Box, Toolbar, Typography } from '@mui/material';
-import React, { useState } from 'react';
-import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 
-import Home from './components/Home';
+import AppRoutes from "./components/Routes";
 import IconButton from '@mui/material/IconButton';
-import LuckyDraw from './components/LuckyDraw';
 import MenuIcon from '@mui/icons-material/Menu';
 import { NavigationButton } from "./NavigationButton";
-import Survey from './components/Survey';
+import React from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 function App() {
-  const [isSurveyCompleted, setSurveyCompleted] = useState(false);
+
 
   return (
     <Router>
@@ -37,17 +35,11 @@ function App() {
           </Toolbar>
         </AppBar>
 
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route
-            path="/survey"
-            element={<Survey onSurveyComplete={() => setSurveyCompleted(true)} />}
-          />
-          <Route
-            path="/lucky-draw"
-            element={<LuckyDraw isSurveyCompleted={isSurveyCompleted} />}
-          />
-        </Routes>
+        <div style={{ position: 'relative' }}>
+          <AppRoutes />
+        </div>
+
+
       </Box>
     </Router>
   );
