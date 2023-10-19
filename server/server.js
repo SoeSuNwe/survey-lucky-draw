@@ -32,13 +32,43 @@ const luckyDrawResultSchema = new mongoose.Schema({
 const SurveyResponse = mongoose.model('SurveyResponse', surveyResponseSchema);
 const LuckyDrawResult = mongoose.model('LuckyDrawResult', luckyDrawResultSchema);
 
-// const User = mongoose.model('User', { name: String, email: String });
-// app.use(bodyParser.json());
-// app.post('/users', (req, res) => {
-//   const user = new User(req.body);
-//   user.save().then(() => res.json(user));
-// });
 
+//user
+const User = mongoose.model('User', { name: String, email: String });
+
+//app.use(bodyParser.json());
+
+ 
+app.post('/api/users', (req, res) => {
+  const { name, email } = req.body;
+  const user = new User({ name, email });
+  user.save()
+    .then(() => {
+      // Fetch the updated list of users and send it as a response
+      User.find()
+        .then(users => {
+          res.json(users);
+        })
+        .catch(err => {
+          res.status(500).json({ error: 'Error fetching users' });
+        });
+    })
+    .catch(err => {
+      res.status(500).json({ error: 'Error creating a new user' });
+    });
+});
+
+app.get('/api/users', (req, res) => {
+  User.find().then(users => res.json(users));
+});
+
+app.put('/api/users/:id', (req, res) => {
+  User.findByIdAndUpdate(req.params.id, req.body, { new: true }).then(user => res.json(user));
+});
+
+app.delete('/api/users/:id', (req, res) => {
+  User.findByIdAndRemove(req.params.id).then(user => res.json(user));
+});
 
 // Create API routes for saving survey responses and lucky draw results
 app.post('/api/survey-response', async (req, res) => {
@@ -64,7 +94,7 @@ app.post('/api/lucky-draw-result', async (req, res) => {
 });
 
 // Start the server
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });

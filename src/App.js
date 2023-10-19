@@ -32,6 +32,7 @@ function App() {
             <NavigationButton to="/" text="Home" />
             <NavigationButton to="/survey" text="Survey" />
             <NavigationButton to="/lucky-draw" text="Lucky Draw" />
+            <NavigationButton to="/users" text="User" />
           </Toolbar>
         </AppBar>
 
