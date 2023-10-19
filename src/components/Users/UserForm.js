@@ -10,6 +10,7 @@ function UserForm() {
   });
   const [isEditing, setIsEditing] = useState(false);
   const [editingUserId, setEditingUserId] = useState(null);
+  const [validationError, setValidationError] = useState('');
 
   useEffect(() => {
     fetchUsers();
@@ -32,10 +33,18 @@ function UserForm() {
       [name]: value,
     });
   }
+  const validateEmail = (email) => {
+    const regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
+    return regex.test(email);
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const { name, email } = formData;
+    if(!validateEmail(email)) {
+      setValidationError('Invalid email');
+      return; 
+    }
 
     if (isEditing) {
       // Update user
@@ -115,6 +124,7 @@ function UserForm() {
         <button type="submit">
           {isEditing ? 'Update' : 'Create'}
         </button>
+        {validationError && <div style={{color:'red'}}>{validationError}</div>}
       </form>
       <div>
         <h2>Users</h2>
